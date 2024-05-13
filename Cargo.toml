@@ -1,0 +1,14 @@
+[package]
+name         = "unscrupulous"
+version      = "0.1.0"
+authors      = ["ffminus <ffminus@protonmail.com"]
+edition      = "2021"
+description  = "Types that do not care about provenance."
+readme       = "README.md"
+repository   = "https://github.com/ffminus/unscrupulous"
+license      = "MIT"
+keywords     = ["marker", "memory", "no_std"]
+categories   = ["memory-management", "no-std", "no-std::no-alloc"]
+
+
+[dependencies]
