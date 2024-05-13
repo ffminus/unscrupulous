@@ -1,3 +1,5 @@
+// Enable usage in contexts without the standard library
+#![no_std]
 // Use `README.md` as documentation home page, to reduce duplication
 #![doc = include_str!("../README.md")]
 
