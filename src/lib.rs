@@ -18,6 +18,9 @@
 /// [`bytemuck::Pod`]: https://docs.rs/bytemuck/latest/bytemuck/trait.Pod.html
 pub unsafe trait Unscrupulous {}
 
+// Static arrays of `Unscrupulous` values are `Unscrupulous` too
+unsafe impl<T: Unscrupulous, const N: usize> Unscrupulous for [T; N] {}
+
 unsafe impl Unscrupulous for bool {}
 unsafe impl Unscrupulous for char {}
 
