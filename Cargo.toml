@@ -11,7 +11,13 @@ keywords     = ["marker", "memory", "no_std"]
 categories   = ["memory-management", "no-std", "no-std::no-alloc"]
 
 
+[features]
+derive = ["dep:unscrupulous_derive"]
+
+
 [dependencies]
+# Derive macro to implement `Unscrupulous` on composite types
+unscrupulous_derive = { version = "0.1.0", optional = true }
 
 
 [lints.clippy]

@@ -1,6 +1,9 @@
 // Use `README.md` as documentation home page, to reduce duplication
 #![doc = include_str!("../README.md")]
 
+#[cfg(feature = "derive")]
+pub use unscrupulous_derive::Unscrupulous;
+
 /// Types whose values can be duplicated simply by copying bits without worrying about provenance.
 ///
 /// The trait flags plain data types, without the move semantics that [`Copy`] entails.
