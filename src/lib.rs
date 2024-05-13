@@ -21,6 +21,24 @@ pub use unscrupulous_derive::Unscrupulous;
 /// [`bytemuck::Pod`]: https://docs.rs/bytemuck/latest/bytemuck/trait.Pod.html
 pub unsafe trait Unscrupulous {}
 
+/// Transmute the provided value into a slice of bytes.
+///
+/// Bear in mind that the layout of composite types is unstable across compilations by default.
+/// Once the slice exits this program (sent over the network or stored on disk),
+/// there is no guarantee that `x` is safe to reconstruct on the other end.
+///
+/// Tag your types with the `#[repr(C)]` attribute to ensure a stable memory layout.
+pub const fn as_slice_of_bytes<T: Unscrupulous>(x: &T) -> &[u8] {
+    let x = core::ptr::from_ref(x).cast();
+
+    // ! SAFETY: We check all safety requirements to call `core::slice::from_raw_parts`:
+    // !   - `x` points to properly aligned memory of size at least `core::mem::size_of::<T>()`
+    // !   - `x` points to a valid instance of `T`
+    // !   - the returned slice is not mutable
+    // !   - `x + core::mem::size_of::<T>()` does not wrap around because the value is contiguous
+    unsafe { core::slice::from_raw_parts(x, core::mem::size_of::<T>()) }
+}
+
 // Static arrays of `Unscrupulous` values are `Unscrupulous` too
 unsafe impl<T: Unscrupulous, const N: usize> Unscrupulous for [T; N] {}
 
