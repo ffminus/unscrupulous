@@ -30,6 +30,7 @@ pub unsafe trait Unscrupulous {}
 /// there is no guarantee that `x` is safe to reconstruct on the other end.
 ///
 /// Tag your types with the `#[repr(C)]` attribute to ensure a stable memory layout.
+#[inline]
 pub const fn as_slice_of_bytes<T: Unscrupulous>(x: &T) -> &[u8] {
     let x = core::ptr::from_ref(x).cast();
 
